@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AccountService } from '../../shared/services/account.service';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     window.localStorage.removeItem("token");
   }
 
@@ -31,8 +34,17 @@ export class LoginComponent implements OnInit {
 
       // navego para a rota vazia novamente
       this.router.navigate(['']);
+      this.spinnerTimeout();
     } catch (error) {
       this.error = error;
+      this.spinnerTimeout();
     }
+  }
+
+  spinnerTimeout() {
+    setTimeout(() => {
+      /** spinner ends after 3 seconds */
+      this.spinner.hide();
+    }, 1000);
   }
 }

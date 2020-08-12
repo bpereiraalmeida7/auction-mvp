@@ -1,8 +1,0 @@
-.auction-completed {
-    text-decoration: line-through;
-}
-
-.auction-item-description {
-    flex-grow: 1;
-    white-space: pre-line;
-}

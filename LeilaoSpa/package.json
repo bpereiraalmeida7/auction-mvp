@@ -20,10 +20,12 @@
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
     "angular-datatables": "^9.0.2",
+    "ngx-spinner": "^8.0.3",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
+    "ng2-currency-mask": "^9.0.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

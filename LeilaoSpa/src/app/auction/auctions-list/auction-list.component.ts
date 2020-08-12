@@ -1,6 +1,8 @@
 import { AuctionService } from './../../shared/services/auction.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Auction } from '../../shared/models/auction';
+import { UserService } from 'src/app/shared/services/users.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-auction-list',
@@ -8,13 +10,16 @@ import { Auction } from '../../shared/models/auction';
   styleUrls: ['./auction-list.component.css']
 })
 export class AuctionListComponent implements OnInit {
-  auction: Auction[] = [];
-  dtOptions: DataTables.Settings = {};
+  auction: Auction[];
+  users: any = [];
 
-  constructor(private auctionService: AuctionService) { }
+  dtOptions: DataTables.Settings = {};
+  now = new Date;
+
+  constructor(private auctionService: AuctionService, private userService: UserService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-
+    this.getAllUser();
     this.dtOptions = {
       pagingType: 'full_numbers',
       responsive: true,
@@ -45,11 +50,35 @@ export class AuctionListComponent implements OnInit {
     this.getAuction();
   }
 
+  getAllUser() {
+    this.userService.getAll().subscribe(users => {
+      this.users = users;
+    });
+  }
+
   getAuction(){
     this.auctionService.getAll().subscribe(auction => { 
-      this.auction = auction;
-      console.log(this.auction)
+      this.convertDate(auction);
     });
+  }
+
+  convertDate(data){
+    data.forEach(element => {
+      let date = new Date(element.dataFinalizacao);
+      let timestamp = date.getTime();
+      element.dataFinalFormat = timestamp;
+    });
+    this.setName(data);
+  }
+
+  setName(data) {
+    data.forEach(element => {
+      var user = this.users.filter(e => {
+        return e.Id = element.responsavel;
+      });
+      element.responsavelName = user[0].nome;
+    });
+    this.auction = data;
   }
 
   remove(auction) {

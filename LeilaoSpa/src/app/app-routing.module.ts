@@ -7,7 +7,6 @@ import { AuctionListComponent } from './auction/auctions-list/auction-list.compo
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 const routes: Routes = [
   {
     path: '',

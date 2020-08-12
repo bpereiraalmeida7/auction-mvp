@@ -5,6 +5,7 @@ import { Auction } from '../../shared/models/auction';
 import { User } from 'src/app/shared/models/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-auction-form',
@@ -24,7 +25,8 @@ export class AuctionFormComponent implements OnInit {
     private router: Router,
     private auctionService: AuctionService,
     private userService: UserService,
-    public fb: FormBuilder
+    public fb: FormBuilder, 
+    private spinner: NgxSpinnerService
   ) { 
     this.mainForm();
   }
@@ -45,11 +47,12 @@ export class AuctionFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.getAllUser();
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.auctionService.getById(id).subscribe(auction => {
-        console.log(auction)
         this.auction = auction;
         this.title = 'Editar Leilão';
       });
@@ -60,8 +63,11 @@ export class AuctionFormComponent implements OnInit {
   getAllUser() {
     this.userService.getAll().subscribe(users => {
       this.users = users;
+      setTimeout(() => {
+        /** spinner ends after 3 seconds */
+        this.spinner.hide();
+      }, 1000);
     });
-    
   }
 
   toggleVisibility(e){
@@ -71,13 +77,17 @@ export class AuctionFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.spinner.show();
+
     if (!this.auctionForm.valid) {
       return false;
     } else {
-      console.log(this.auction.valorInicial)
       this.auctionService.save(this.auction).subscribe(auction => {
-        console.log(auction);
         this.router.navigate(['']);
+        setTimeout(() => {
+          /** spinner ends after 3 seconds */
+          this.spinner.hide();
+        }, 1000);
       });
     }
   }
