@@ -11,7 +11,8 @@ Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode
 3. Abra o arquivo `appsettings.json`, e modifique o valor "Server" da connection string, com a instância de sua preferência.
     ![run solution](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/screenshots/connection.PNG)
     
-4. Execute a solução, clicando no botão como na imagem abaixo:
+4. Execute a solução, clicando no botão como na imagem abaixo:  
+
     ![run solution](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/screenshots/runApi.PNG)
 
     
