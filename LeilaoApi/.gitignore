@@ -1,0 +1,9 @@
+# Folders
+bin/
+obj/
+.vs/
+.vscode/
+~
+
+#Files
+appsettings.Development.json
