@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LeilaoApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using LeilaoApi.Repository;
+using System;
 
 namespace LeilaoApi.Controllers
 {
@@ -13,32 +15,58 @@ namespace LeilaoApi.Controllers
     [ApiController]
     public class ItensLeilaoController : ControllerBase
     {
-        private readonly LeilaoContext _context;
+        private readonly IItensLeilaoRepository _itensRepository;
 
-        public ItensLeilaoController(LeilaoContext context)
+        public ItensLeilaoController(IItensLeilaoRepository itensRepository)
         {
-            _context = context;
+            _itensRepository = itensRepository;
         }
+
 
         // GET: api/ItensLeilao
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItensLeilao>>> GetItensLeilao()
+        public async Task<ActionResult> GetItensLeilao()
         {
-            return await _context.ItensLeilao.ToListAsync();
+            try
+            {
+                var items = await _itensRepository.GetItensLeilao();
+                if (items == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(items);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         // GET: api/ItensLeilao/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItensLeilao>> GetItensLeilao(int id)
+        public async Task<ActionResult> GetItensLeilao(int? id)
         {
-            var itensLeilao = await _context.ItensLeilao.FindAsync(id);
-
-            if (itensLeilao == null)
+            if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            return itensLeilao;
+            try
+            {
+                var item = await _itensRepository.GetItemLeilao(id);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(item);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         // PUT: api/ItensLeilao/5
@@ -52,22 +80,13 @@ namespace LeilaoApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(itensLeilao).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _itensRepository.UpdateItemLeilao(itensLeilao);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItensLeilaoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
@@ -77,33 +96,39 @@ namespace LeilaoApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ItensLeilao>> PostItensLeilao(ItensLeilao itensLeilao)
+        public async Task<ActionResult> PostItensLeilao(ItensLeilao itensLeilao)
         {
-            _context.ItensLeilao.Add(itensLeilao);
-            await _context.SaveChangesAsync();
+            await _itensRepository.AddItemLeilao(itensLeilao);
 
             return CreatedAtAction("GetItensLeilao", new { id = itensLeilao.Id }, itensLeilao);
         }
 
         // DELETE: api/ItensLeilao/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ItensLeilao>> DeleteItensLeilao(int id)
+        public async Task<ActionResult> DeleteItensLeilao(int? id)
         {
-            var itensLeilao = await _context.ItensLeilao.FindAsync(id);
-            if (itensLeilao == null)
+            int result = 0;
+
+            if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            _context.ItensLeilao.Remove(itensLeilao);
-            await _context.SaveChangesAsync();
+            try
+            {
+                result = await _itensRepository.DeleteItemLeilao(id);
+                if (result == 0)
+                {
+                    return NotFound();
+                }
+                return Ok();
+            }
+            catch (Exception)
+            {
 
-            return itensLeilao;
+                return BadRequest();
+            }
         }
 
-        private bool ItensLeilaoExists(int id)
-        {
-            return _context.ItensLeilao.Any(e => e.Id == id);
-        }
     }
 }

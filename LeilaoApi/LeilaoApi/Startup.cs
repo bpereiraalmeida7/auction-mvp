@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using LeilaoApi.Repository;
 
 namespace LeilaoApi
 {
@@ -25,7 +26,10 @@ namespace LeilaoApi
         {
             var connection = Configuration.GetConnectionString("LeilaoDatabase");
             services.AddDbContextPool<LeilaoContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IItensLeilaoRepository, ItensLeilaoRepository>();
+            services.AddTransient<IItensLeilaoRepository, ItensLeilaoRepository>();
             services.AddControllers();
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
