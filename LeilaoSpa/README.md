@@ -1,27 +1,13 @@
-# LeilaoSpa
+# Configurando Frontend (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
+###### Documentação: [Requisitos](https://angular.io/guide/setup-local#prerequisites)
 
-## Development server
+Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode perfeitamente, configure o frontend da seguinte forma:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Abra o terminal na pasta raíz do projeto no diretório LeilaoSpa, e com o Node e Angular CLI devidamente instalado, execute o comando para instalar todas as dependências do projeto: 
+    > npm install
+    
+2. Com tudo devidamente instalado, apenas execute o comando para rodar o projeto:
+    > npm start
+    
+O projeto irá rodar no endereço padrão: localhost:4200. Acesse nesse endereço, e utilize o projeto. No caminho src/environments/environments.ts, está configurado o endereço local onde sua API já deve está rodando [LeilaoApi](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/LeilaoApi/README.md), caso precise mudar, poderá faze-lo modificando o valor inputado na constante `environment.api`. Com isso, tudo pronto para o frontend se "comunicar" com o backend, e retornar os dados necessários.
