@@ -59,7 +59,7 @@ namespace LeilaoApi.Controllers
                 }
                 else
                 {
-                    return BadRequest("Credencial Inválida");
+                    return BadRequest("Credenciais Inválidas ou Usuário Inativo");
                 }
             }
             else
@@ -70,7 +70,7 @@ namespace LeilaoApi.Controllers
 
         private async Task<Usuarios> GetUser(string usuario, string senha)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Usuario == usuario && u.Senha == senha);
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Usuario == usuario && u.Senha == senha && u.Situacao);
         }
     }
 }
