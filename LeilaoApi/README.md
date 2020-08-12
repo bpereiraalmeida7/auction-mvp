@@ -8,7 +8,8 @@ Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode
 
 2. Abra a pasta no diretório LeilaoApi, identificando a Solução do projeto (caminho: LeilaoApi\LeilaoApi.sln), abrindo a mesma no [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/).
 
-3. Abra o arquivo `appsettings.json`, e modifique o valor "Server" da connection string, com a instância de sua preferência.
+3. Abra o arquivo `appsettings.json`, e modifique o valor "Server" da connection string, com a instância de sua preferência.  
+
     ![run solution](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/screenshots/connection.PNG)
     
 4. Execute a solução, clicando no botão como na imagem abaixo:  
