@@ -1,0 +1,17 @@
+<h2 class="text-center">Entrar</h2>
+
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="form-group">
+    <label>Usuário</label>
+    <input class="form-control" type="text" name="Usuario" id="Usuario" [(ngModel)]="login.Usuario" required />
+  </div>
+  <div class="form-group">
+    <label>Senha</label>
+    <input class="form-control" type="password" name="Senha" id="Senha" [(ngModel)]="login.Senha" required />
+  </div>
+  <button type="submit" class="btn btn-primary btn-block" [disabled]="form.form.invalid">Entrar</button>
+  <div class="align">
+    <span class="error">{{ error }}</span>
+  </div>
+  <!-- <button type="button" class="btn btn-link btn-block" [routerLink]="['/create-account']">Criar conta</button> -->
+</form>

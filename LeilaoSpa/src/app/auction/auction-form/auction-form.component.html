@@ -1,0 +1,61 @@
+<h2>{{ title }}</h2>
+<hr />
+
+<section id="form">
+    <form [formGroup]="auctionForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-6">
+                <label>Nome do Item</label>
+                <input type="text" class="form-control" [(ngModel)]="auction.nomeItem" name="nomeItem" formControlName="nomeItem" required/>
+                <div class="invalid" *ngIf="submitted && myForm.nomeItem.errors?.required">
+                    Nome é obrigatório.
+                </div>
+            </div>
+            <div class="col-6">
+                <label>Valor Inicial</label>
+                <input type="number" [(ngModel)]="auction.valorInicial" name="valorInicial" class="form-control" formControlName="valorInicial"/>
+                <div class="invalid" *ngIf="submitted && myForm.valorInicial.errors?.required">
+                    Valor Inicial é obrigatório.
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="example-datetime-local-input" class="form-check-label">Data de Abertura</label>
+                <input class="form-control" type="datetime-local" [(ngModel)]="auction.dataAbertura" [value]="auction.dataAbertura" name="dataAbertura" id="example-datetime-local-input" formControlName="dataAbertura" required>
+                <div class="invalid" *ngIf="submitted && myForm.dataAbertura.errors?.required">
+                    Data de Abertura é obrigatório.
+                </div> 
+            </div>
+            <div class="col-6">
+                <label for="example-datetime-local-input" class="form-check-label">Data de Finalização</label>
+                <input class="form-control" type="datetime-local" [(ngModel)]="auction.dataFinalizacao" [value]="auction.dataFinalizacao" name="dataFinalizacao" formControlName="dataFinalizacao" id="example-datetime-local-input" required>
+                <div class="invalid" *ngIf="submitted && myForm.dataFinalizacao.errors?.required">
+                    Data de Finalização é obrigatório.
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Responsável</label>
+                <select class="form-control" name="responsavel" formControlName="responsavel" [(ngModel)]="auction.responsavel" style="width: 100%;">
+                    <option *ngFor="let user of users" [ngValue]="user.id">{{user.nome}}</option>
+                </select>
+                <div class="invalid" *ngIf="submitted && myForm.responsavel.errors?.required">
+                    Responsável é obrigatório.
+                </div> 
+            </div>
+            <div class="col-6">
+                <br />
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" [(value)]="auction.flagUsado" [checked]="auction.flagUsado === true" (change)="toggleVisibility($event)" id="auction.flagUsado">
+                    <label class="custom-control-label" for="auction.flagUsado">Usado</label>
+                </div>
+            </div>
+        </div><br />
+        <div class="col-12" style="text-align: right;">
+            <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+            <button type="button" class="btn btn-secondary" [routerLink]="['']">Cancelar</button>
+        </div>
+    </form>
+</section>
