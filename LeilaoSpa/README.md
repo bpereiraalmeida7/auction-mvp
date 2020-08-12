@@ -1,4 +1,4 @@
-# Configurando Frontend (Angular)
+# Configurando Frontend 
 
 ###### Documentação: [Requisitos](https://angular.io/guide/setup-local#prerequisites)
 
