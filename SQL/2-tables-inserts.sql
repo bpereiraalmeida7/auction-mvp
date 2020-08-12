@@ -1,5 +1,3 @@
-
-CREATE DATABASE leilao;
 Create Table usuarios(
 id Int Identity(1,1) Primary Key,
 nome Varchar(100) Not Null,

@@ -4,7 +4,7 @@
 
 Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode perfeitamente, você terá o sistema dividido em duas pastas (LeilaoApi e LeilaoSpa). Configure a api da seguinte forma:
 
-1. Rode o [script SQL](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/sql/SQLLeilao.sql), para criação da base de dados, o qual já acompanha insert de um usuário e um item de leilão.
+1. Rode os scripts na ordem [script SQL](https://github.com/bpereiraalmeida7/auction-mvp/blob/master/SQL), para criação da base de dados e insert de um usuário e um item de leilão.
 
 2. Abra a pasta no diretório LeilaoApi, identificando a Solução do projeto (caminho: LeilaoApi\LeilaoApi.sln), abrindo a mesma no [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/).
 
